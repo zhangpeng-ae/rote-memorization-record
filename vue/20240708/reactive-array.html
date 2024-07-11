@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script src="./index.js"></script>
+    <script>
+
+      const arr = [1, 2, 3];
+      const arrProxy = reactive(arr);
+      effect(() => {
+        arrProxy.push(4);
+        console.log('[ arrProxy ] >', arrProxy)
+      });
+    </script>
+  </body>
+</html>

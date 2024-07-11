@@ -14,14 +14,17 @@ function reactive(target) {
 
   const proxy = new Proxy(target, {
     get(target, key, receiver) {
-      const value = Reflect.get(target, key, receiver);
+      console.log('%c [ key ]-17', 'font-size:13px; background:pink; color:#bf2c9f;', key)
+      let res = target[key];
+      // const value = Reflect.get(target, key, receiver);
       track(target, key);
-      return value;
+      return res;
     },
     set(target, key, value, receiver) {
-      const result = Reflect.set(target, key, value, receiver);
+      console.log('%c [ key ]-23', 'font-size:13px; background:pink; color:#bf2c9f;', key)
+      target[key] = value;
       trigger(target, key);
-      return result;
+      return true;
     },
   });
 
@@ -29,6 +32,10 @@ function reactive(target) {
 }
 
 function track(target, key) {
+  if (!activeEffect) {
+    return;
+  }
+
   let map = wm.get(target);
   if (!map) {
     wm.set(target, (map = new Map()));
@@ -55,9 +62,7 @@ function trigger(target, key) {
     return;
   }
 
-  effects.forEach((effect) => {
-    if (effect !== activeEffect) {
-      effect();
-    }
-  });
+  for (const effect of effects) {
+    effect();
+  }
 }
