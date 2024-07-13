@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+
+
+      // const obj = reactive({
+      //   name:'张三'
+      // })
+
+      // effect(()=>{
+      //   document.querySelector('#app').innerHTML = obj.name
+      // })
+
+      // setTimeout(() => {
+      //   obj.name = '李四'
+      // }, 2000)
+
+      const nameRef = ref('张张')
+      effect(()=>{
+        document.querySelector('#app').innerHTML = nameRef.value
+      })
+
+      setTimeout(() => {
+        nameRef.value = '李四'
+      }, 2000)
+    </script>
+  </body>
+</html>

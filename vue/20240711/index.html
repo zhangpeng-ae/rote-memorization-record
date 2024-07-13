@@ -7,18 +7,55 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>Document</title>
+    <style>
+
+      #app{
+        height: 6000px;
+      }
+    </style>
   </head>
   <body>
-
+    <div id="app"></div>
 
     <script>
 
+      window.onload = ()=>{
 
-      
+        const scrollFn = throttle(()=>{
+          console.log(window.scrollY)
+        },1000)
 
+        document.addEventListener('scroll',scrollFn)
 
+      }
 
+      // 实现防抖函数
+      function debounce(fn, delay) {
+        let timer = null;
+        return function (...args) {
+          if (timer) {
+            clearTimeout(timer);
+          }
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      }
+      // 实现节流函数
+      function throttle(fn, delay) {
+        let timer = null;
+        let flag = true;
+        return function (...args) {
+          if (!flag) {
+            return;
+          }
+          flag = false;
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+            flag = true;
+          }, delay);
+        };
+      }
     </script>
-
   </body>
 </html>
